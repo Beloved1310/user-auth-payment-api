@@ -1,7 +1,7 @@
 const User = require('../model/user.model');
 
 
-export const userRepository = {
+const userRepository = {
   async getOneUser(email) {
     const user = await User.findOne({ email }).select('-__v ')
     return user
@@ -16,3 +16,5 @@ export const userRepository = {
     })
   },
 }
+
+module.exports = userRepository
