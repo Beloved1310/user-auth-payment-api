@@ -4,7 +4,7 @@ const { ResponseService } = require('../services/response.service');
 const { generateRandomString } = require('../utilis/generateToken');
 const { userRepository } = require('../repositories/user.repositories');
 
-export const userController = {
+const userController = {
   async register(req, res) {
     const { value, error } = userValidation.create.validate(req.body)
     if (error) return res.status(400).send({ error: error.details[0].message })
@@ -41,3 +41,5 @@ export const userController = {
     return ResponseService.success(res, 'Login Successful', data)
   },
 }
+
+module.exports = userController
