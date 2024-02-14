@@ -9,16 +9,20 @@ const UserSchema = new mongoose.Schema(
       required: true,
     },
     phoneNumber: {
-      type:String
+      type: String,
     },
     password: {
       type: String,
       required: true,
     },
-    status: "unpaid"
+    status: {
+      type: String,
+      default: "unpaid"
+    }
   },
   { timestamps: true }
 );
+
 
 UserSchema.methods.generateAuthToken = function generatedToken() {
   const token = jwt.sign(
