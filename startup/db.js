@@ -9,8 +9,9 @@ module.exports = async () => {
     useUnifiedTopology: true,
   });
   if (mongooseConnect) {
-    debug('Connected to Database');
+    console.log('Connected to Database')
+    // debug('Connected to Database');
   } else {
-    debug('Not Connected to Database');
+    console.log('Not Connected to Database');
   }
 };

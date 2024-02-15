@@ -1,10 +1,9 @@
-const { userRepository } = require('../repositories/user.repositories');
-const bcrypt = require('bcrypt');
-const ValidationError = require('../utilis/validation-error');
-const NotFoundError = require('../utilis/not-found-error');
-const UnprocessableError = require('../utilis/not-processed-error');
-const ConflictError = require('../utilis/conflict-error');
-
+const { userRepository } = require('../repositories/user.repositories')
+const bcrypt = require('bcrypt')
+const ValidationError = require('../utilis/validation-error')
+const NotFoundError = require('../utilis/not-found-error')
+const UnprocessableError = require('../utilis/not-processed-error')
+const ConflictError = require('../utilis/conflict-error')
 
 const userService = {
   async createUser(createUser) {
@@ -14,8 +13,6 @@ const userService = {
       throw new ConflictError('User already registered. Proceed to login')
     const salt = await bcrypt.genSalt(10)
     createUser.password = await bcrypt.hash(createUser.password, salt)
-    createUser['changeEmail'] = email
-    createUser['email'] = ''
     const savedUser = await userRepository.createUser(createUser)
     if (!savedUser) throw new UnprocessableError('Unsaved User')
     return savedUser

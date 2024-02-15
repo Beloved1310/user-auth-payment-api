@@ -1,5 +1,5 @@
 const { userValidation } = require('../validation/user.validation');
-const { userService } = require('../services/user.service');
+const userService = require('../services/user.service')
 const { ResponseService } = require('../services/response.service');
 const { userRepository } = require('../repositories/user.repositories');
 
@@ -21,19 +21,6 @@ const userController = {
     const { email } = value
     const { token, refreshToken, ...user } = await userService.loginUser(value)
     res.header('authorization', token)
-    res
-      .cookie('refreshToken', refreshToken, {
-        httpOnly: true,
-        maxAge: 7 * 24 * 60 * 60 * 1000,
-        sameSite: 'none',
-        secure: true,
-        domain: 'api.worknoon.com',
-      })
-      .cookie('refreshToken', refreshToken, {
-        httpOnly: true,
-        maxAge: 7 * 24 * 60 * 60 * 1000,
-        sameSite: 'lax',
-      })
     const data = { email, token, ...user }
     return ResponseService.success(res, 'Login Successful', data)
   },
