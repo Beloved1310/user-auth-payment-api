@@ -25,7 +25,7 @@ const userController = {
     return ResponseService.success(res, 'Login Successful', data)
   },
 
-  async settings(req, res) {
+  async updateUser(req, res) {
     const { value, error } = userValidation.profile.validate(req.body);
     if (error) {
       return res.status(400).send({ error: error.details[0].message });
