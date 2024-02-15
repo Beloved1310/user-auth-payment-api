@@ -1,15 +1,12 @@
 const { userValidation } = require('../validation/user.validation');
 const { userService } = require('../services/user.service');
 const { ResponseService } = require('../services/response.service');
-const { generateRandomString } = require('../utilis/generateToken');
 const { userRepository } = require('../repositories/user.repositories');
 
 const userController = {
   async register(req, res) {
     const { value, error } = userValidation.create.validate(req.body)
     if (error) return res.status(400).send({ error: error.details[0].message })
-    value.verificationToken = generateRandomString(5)
-    value.verificationTokenExp = new Date(Date.now() + 600000) // 10 mins
     const data = await userService.createUser(value)
     return ResponseService.success(
       res,
