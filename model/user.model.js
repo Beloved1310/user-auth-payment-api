@@ -24,15 +24,38 @@ const UserSchema = new mongoose.Schema(
 );
 
 
-UserSchema.methods.generateAuthToken = function generatedToken() {
+UserSchema.methods.generateAuthToken = function generateToken() {
+  const user = this;
+  const expiresIn = 60 * 15; // 15 minutes in seconds
+  const payload = {
+    _id: user._id,
+    firstName: user.firstName,
+    code: user.code,
+    email: user.email,
+    isAdmin: user.isAdmin,
+    isPartner: user.isPartner,
+    exp: Math.floor(Date.now() / 1000) + expiresIn,
+  };
+
+  const token = jwt.sign(payload, config.JWT);
+  return token;
+};
+
+UserSchema.methods.generateRefreshToken = function generatedToken() {
+  const user = this;
+  const expiresIn = 60 * 60 * 24 * 7;
+
   const token = jwt.sign(
     {
-      _id: this._id,
-      username: this.username,
-      email: this.email,
+      _id: user._id,
+      firstName: user.firstName,
+      email: user.email,
+      isAdmin: user.isAdmin,
+      exp: Math.floor(Date.now() / 1000) + expiresIn,
     },
-    process.env.JWT
+    config.REFRESH_JWT
   );
+
   return token;
 };
 

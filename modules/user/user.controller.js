@@ -1,7 +1,7 @@
-const { userValidation } = require('../validation/user.validation');
-const userService = require('../services/user.service')
-const { ResponseService } = require('../services/response.service');
-const { userRepository } = require('../repositories/user.repositories');
+const { userValidation } = require('./user.validation')
+const userService = require('./user.service')
+const { ResponseService } = require('../../services/response.service')
+const { userRepository } = require('../../repositories/user.repositories')
 
 const userController = {
   async register(req, res) {

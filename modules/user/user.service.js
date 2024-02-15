@@ -1,9 +1,9 @@
-const { userRepository } = require('../repositories/user.repositories')
+const { userRepository } = require('../../repositories/user.repositories')
 const bcrypt = require('bcrypt')
-const ValidationError = require('../utilis/validation-error')
-const NotFoundError = require('../utilis/not-found-error')
-const UnprocessableError = require('../utilis/not-processed-error')
-const ConflictError = require('../utilis/conflict-error')
+const ValidationError = require('../../utilis/validation-error')
+const NotFoundError = require('../../utilis/not-found-error')
+const UnprocessableError = require('../../utilis/not-processed-error')
+const ConflictError = require('../../utilis/conflict-error')
 
 const userService = {
   async createUser(createUser) {
