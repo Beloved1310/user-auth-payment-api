@@ -1,4 +1,4 @@
-const { userRepository } = require('../../repositories/user.repositories')
+const  userRepository  = require('../../repositories/user.repositories')
 const bcrypt = require('bcrypt')
 const ValidationError = require('../../utilis/validation-error')
 const NotFoundError = require('../../utilis/not-found-error')

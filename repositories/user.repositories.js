@@ -15,6 +15,11 @@ const userRepository = {
       $set: queryParams,
     })
   },
+  async createUser(createUser) {
+    const savedUser = await User.create(createUser);
+    const { _id, __v, password, ...data } = savedUser.toObject();
+    return data;
+  },
 }
 
 module.exports = userRepository

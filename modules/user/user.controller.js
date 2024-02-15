@@ -1,6 +1,6 @@
-const { userValidation } = require('./user.validation')
+const  userValidation  = require('./user.validation')
 const userService = require('./user.service')
-const { ResponseService } = require('../../services/response.service')
+const ResponseService  = require('../../services/response.service')
 const { userRepository } = require('../../repositories/user.repositories')
 
 const userController = {
@@ -8,6 +8,7 @@ const userController = {
     const { value, error } = userValidation.create.validate(req.body)
     if (error) return res.status(400).send({ error: error.details[0].message })
     const data = await userService.createUser(value)
+    console.log(data)
     return ResponseService.success(
       res,
       'Welcome! You have successfully sign up. Proceed to login',
