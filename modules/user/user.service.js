@@ -1,4 +1,4 @@
-const  userRepository  = require('../../repositories/user.repositories')
+const userRepository = require('../../repositories/user.repositories')
 const bcrypt = require('bcrypt')
 const ValidationError = require('../../utilis/validation-error')
 const NotFoundError = require('../../utilis/not-found-error')
@@ -36,13 +36,9 @@ const userService = {
     const {
       _id,
       password,
-      changeEmail,
-      verificationToken,
-      verificationTokenExp,
+      email,
       firstName,
       lastName,
-      companyName,
-      companyAddress,
     } = value
 
     const updateData = {}
@@ -52,11 +48,8 @@ const userService = {
       updateData.password = await bcrypt.hash(password, salt)
     }
 
-    if (changeEmail) {
-      updateData.changeEmail = changeEmail
-      updateData.verificationToken = verificationToken
-      updateData.verificationTokenExp = verificationTokenExp
-      await sendVerificationEmail(changeEmail, firstName, verificationToken)
+    if (email) {
+      updateData.email = email
     }
 
     if (firstName) {
@@ -65,14 +58,6 @@ const userService = {
 
     if (lastName) {
       updateData.lastName = lastName
-    }
-
-    if (companyName) {
-      updateData.companyName = companyName
-    }
-
-    if (companyAddress) {
-      updateData.companyAddress = companyAddress
     }
 
     await userRepository.updateUserData(updateData, { _id })
