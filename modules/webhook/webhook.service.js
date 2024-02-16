@@ -6,7 +6,6 @@ const webhookController = {
   async handleWebhook(req, res) {
     const sig = req.headers['stripe-signature']
     let event
-
     // Retrieve the raw request body
     try {
       event = stripe.webhooks.constructEvent(

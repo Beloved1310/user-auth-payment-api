@@ -4,7 +4,7 @@ const rateLimit = require('express-rate-limit')
 require('dotenv').config()
 const debug = require('debug')('app')
 const { PORT } = require('./config')
-const bodyParser = require('body-parser');
+const bodyParser = require('body-parser')
 
 const app = express()
 require('./startup/db')()
@@ -31,11 +31,13 @@ process.on('uncaughtException', (err) => {
 app.use(limiter)
 app.use(cors({ origin: '*' }))
 
-// app.use(express.urlencoded({ extended: true, limit: 52428800 }));
-// app.use(express.json({ limit: 52428800 }));
-
-app.use('/api/v1/user', user)
-app.use('/api/v1/stripe', express.raw({type: 'application/json'}), webhook)
+app.use(
+  '/api/v1/user',
+  express.urlencoded({ extended: true, limit: '50mb' }),
+  express.json({ limit: 52428800 }),
+  user,
+)
+app.use('/api/v1/stripe', express.raw({ type: 'application/json' }), webhook)
 
 app.listen(PORT, () => {
   console.log(`Web server is running ${PORT}`)

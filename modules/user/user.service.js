@@ -20,13 +20,12 @@ const userService = {
 
   async loginUser(loginUser) {
     const user = await userRepository.getOneUser(loginUser.email)
-    if (!user) throw new ValidationError('Username or Password not found')
+    if (!user) throw new ValidationError('Email or Password not found')
     const validPassword = await bcrypt.compare(
       loginUser.password,
       user.password,
     )
-    if (!validPassword)
-      throw new ValidationError('Username or Password not found')
+    if (!validPassword) throw new ValidationError('Email or Password not found')
     const token = user.generateAuthToken()
     const refreshToken = user.generateRefreshToken()
     return { token, refreshToken, user }
