@@ -36,8 +36,8 @@ const webhookController = {
        if(!foundEmail) throw new NotFoundError('User Credentials is not available')
         updateData.email = email
       }
-
       await userRepository.updateUserData(updateData)
+      return {status: "paid"}
     }
   },
 }

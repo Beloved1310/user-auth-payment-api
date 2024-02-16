@@ -18,21 +18,22 @@ Before running this application, make sure you have the following installed:
 ## Setup
 1. **Clone the repository:**
     ```
-    git clone https://github.com/your-username/nodejs-mongodb-stripe-api.git
+    git clone https://github.com/Beloved1310/user-auth-payment-api
     ```
 
 2. **Install dependencies:**
     ```
-    cd nodejs-mongodb-stripe-api
+    cd user-auth-payment-api
     npm install
     ```
 
 3. **Configure environment variables:**
     Create a `.env` file in the root directory and add the following:
     ```
-    PORT=3000
-    MONGODB_URI=your_mongodb_connection_string
+    PORT=4000
+    MONGODBUR=your_mongodb_connection_string
     JWT_SECRET=your_jwt_secret_key
+    REFRESH_JWT=your_jwt_refresh_token 
     STRIPE_SECRET_KEY=your_stripe_secret_key
     STRIPE_WEBHOOK_SECRET=your_stripe_webhook_secret
     ```
@@ -49,8 +50,11 @@ Before running this application, make sure you have the following installed:
 - **Request Body:**
     ```json
     {
-      "username": "example_user",
-      "password": "example_password"
+      "firstName": "example_user",
+      "lastName": "example_user",
+      "email": "your_example_email",
+      "password": "example_password",
+      "confirm_password": "your_example_confirm_password"
     }
     ```
 - **Response:** 201 Created
@@ -66,14 +70,17 @@ Before running this application, make sure you have the following installed:
 - **Request Body:**
     ```json
     {
-      "username": "example_user",
+      "email": "example_email",
       "password": "example_password"
     }
     ```
 - **Response:**
     ```json
     {
-      "accessToken": "your_generated_access_token"
+      "message": "Login Successful", 
+      "data": {
+        "accessToken": "your_generated_access_token"
+      }
     }
     ```
 
@@ -90,10 +97,7 @@ Before running this application, make sure you have the following installed:
     ```json
     {
       "message": "User record updated successfully",
-      "user": {
-        "_id": "user_id",
-        "username": "example_user",
-        "password": "example_password",
+      "data": {
         "status": "paid"
       }
     }
@@ -106,5 +110,3 @@ Before running this application, make sure you have the following installed:
 ## Contributing
 Contributions are welcome! Feel free to open issues or pull requests for any improvements or features you'd like to add.
 
-## License
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
