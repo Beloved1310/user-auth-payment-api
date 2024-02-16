@@ -9,4 +9,6 @@ module.exports = {
   PORT: env.PORT || 4000,
   MONGODBURI: env.MONGODBURI,
   debug: env.debug,
+  STRIPE_WEBHOOK_KEY: env.STRIPE_WEBHOOK_KEY,
+  STRIPE_SECRET_KEY: env.STRIPE_SECRET_KEY
 };

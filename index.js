@@ -9,6 +9,7 @@ const app = express()
 require('./startup/db')()
 
 const user = require('./modules/user/index')
+const webhook = require('./modules/webhook/index')
 
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
@@ -33,6 +34,7 @@ app.use(express.urlencoded({ extended: true }))
 app.use(express.json({ limit: '50mb' }))
 
 app.use('/api/v1/user', user)
+app.use('/api/v1/stripe', webhook )
 
 app.listen(PORT, () => {
   console.log(`Web server is running ${PORT}`)

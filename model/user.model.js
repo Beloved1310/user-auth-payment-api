@@ -27,6 +27,9 @@ const UserSchema = new mongoose.Schema(
       type: String,
       default: 'unpaid',
     },
+    stripeCustomerId: {
+      type: String,
+    },
   },
   { timestamps: true },
 )

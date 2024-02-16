@@ -39,29 +39,27 @@ const userService = {
       email,
       firstName,
       lastName,
+      stripeCustomerId,
     } = value
 
     const updateData = {}
 
+    // Hash password if provided
     if (password) {
       const salt = await bcrypt.genSalt(10)
       updateData.password = await bcrypt.hash(password, salt)
     }
 
-    if (email) {
-      updateData.email = email
-    }
+    // Assign other fields if provided
+    if (email) updateData.email = email
+    if (stripeCustomerId) updateData.stripeCustomerId = stripeCustomerId
+    if (firstName) updateData.firstName = firstName
+    if (lastName) updateData.lastName = lastName
 
-    if (firstName) {
-      updateData.firstName = firstName
-    }
-
-    if (lastName) {
-      updateData.lastName = lastName
-    }
-
+    // Update user data
     await userRepository.updateUserData(updateData, { _id })
-    return ''
+
+    return '' // Success
   },
 }
 

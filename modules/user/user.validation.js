@@ -7,7 +7,7 @@ const userValidation = {
   create: Joi.object({
     firstName: Joi.string().required(),
     lastName: Joi.string().required(),
-    email: Joi.string().email(),
+    email: Joi.string().email().required(),
     password: Joi.string()
       .pattern(passwordRegex)
       .max(70)
@@ -36,6 +36,22 @@ const userValidation = {
       })
       .required(),
   }),
+
+  update: Joi.object({
+    firstName: Joi.string().optional(),
+    lastName: Joi.string().optional(),
+    email: Joi.string().email().optional(),
+    stripeCustomerId: Joi.string().optional(),
+    password: Joi.string()
+      .pattern(passwordRegex)
+      .max(70)
+      .messages({
+        'string.pattern.match': '"password" must be stronger',
+        'string.pattern.base':
+          'The "password" must meet the specified criteria: at least one lowercase letter, one uppercase letter, one digit, one special character, and a minimum length of 8 characters.',
+      })
+      .optional(),
+    })
 }
 
 module.exports = userValidation
